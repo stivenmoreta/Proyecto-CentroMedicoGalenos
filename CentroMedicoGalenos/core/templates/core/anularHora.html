@@ -1,0 +1,31 @@
+{% extends 'core/basePaciente.html' %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+
+{% block href %} 
+<a href="{% url 'horasPaciente' %}" class="nav_link "> <i class='bx bx-calendar nav_icon'></i> <span class="nav_name">Mis horas</span> </a> 
+<a href="{% url 'registrarHoraMedica' 'ins' -1 %}" class="nav_link active"> <i class='bx bxs-edit nav_icon'></i> <span class="nav_name">Agendar hora</span> </a> 
+{% endblock %}
+
+{% block title %} Anular hora medica{% endblock%}
+
+{% block content %}
+<h6 class="text-center">Para anular la hora deshabilite la casilla y pulse botón anular</h6>
+        <form method="POST" action="#" id="form-rg-hr">
+            {% csrf_token %} 
+            {{ form | crispy }}
+            <div class="button-box">
+                <br>
+                <div style="text-align: center;">
+                <button id="boton-rg" class="btn btn-outline-info" type="submit"><span>Anular</span></button>
+                </div>
+                {% if mesg %}
+                <div id="form_message" class="alert alert-danger" role="alert">{{ mesg }}</div>
+                {% endif %}
+            </div>
+        </form>
+
+
+{% endblock %}

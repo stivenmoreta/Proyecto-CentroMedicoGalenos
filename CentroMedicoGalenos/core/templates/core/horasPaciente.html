@@ -1,0 +1,51 @@
+{% extends 'core/basePaciente.html' %}
+{% load static %}
+
+
+{% block href %} 
+<a href="{% url 'horasPaciente' %}" class="nav_link active"> <i class='bx bx-calendar nav_icon'></i> <span class="nav_name">Mis horas</span> </a> 
+<a href="{% url 'registrarHoraMedica' 'ins' -1 %}" class="nav_link"> <i class='bx bxs-edit nav_icon'></i> <span class="nav_name">Agendar hora</span> </a> 
+{% endblock %}
+
+{% block title %} Mis horas {% endblock%}
+
+    {% block content %} 
+            <table class="table text-center">
+                <thead>
+                  <tr >
+                    <th scope="col">Id</th>
+                    <th scope="col">Especialidad</th>
+                    <th scope="col">Nombre del medico</th>
+                    <th scope="col">Fecha de atencion</th>
+                    <th scope="col">Hora de atencion</th>
+                    <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                {% if lista %}
+                    {% for hora in lista %}
+                    <tbody style="vertical-align: middle;">
+                    <tr >
+                        <th scope="row">{{ hora.idHoraMedica}}</th>                       
+                        <td>{{ hora.especialidad }}</td>
+                        <td>{{ hora.medico }}</td>
+                        <td>{{ hora.fechaAtencion }}</td> 
+                        <td>{{ hora.horaAtencion}}</td>
+                        {% if hora.estadoHora is True %}
+                          <td>Por pagar</td>
+                          <td>
+                              <a class="btn btn-danger" href="{% url 'anularHora' hora.idHoraMedica %}">Anular</a>
+                          </td>
+                        {% else %}
+                        <td>Anulado</td>
+                        <td>
+                          <a class="btn btn-danger" href="{% url 'eliminarHora' hora.idHoraMedica %}">Eliminar</a>                  
+                        </td>
+                        {% endif %}
+
+                        
+                    </tr>
+                    </tbody>
+                    {% endfor %}
+                {% endif %}
+            </table>
+    {% endblock %}
