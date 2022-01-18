@@ -6,4 +6,4 @@ Tecnologia:
 -css3
 -Django
 -Bootstrap
-
+-SQlite
